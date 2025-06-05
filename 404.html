@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>História da Inteligência Artificial</title>
+    <style>
+        :root {
+            --primary-color: #6d28d9;
+            --secondary-color: #8b5cf6;
+            --accent-color: #a78bfa;
+            --dark-color: #0f172a;
+            --darker-color: #020617;
+            --light-color: #e2e8f0;
+            --lighter-color: #f8fafc;
+            --timeline-color: #7c3aed;
+            --card-bg: #1e293b;
+            --text-primary: #f1f5f9;
+            --text-secondary: #cbd5e1;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: var(--text-primary);
+            background-color: var(--darker-color);
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        h2 {
+            text-align: center;
+            color: var(--lighter-color);
+            margin-bottom: 50px;
+            font-size: 2.8rem;
+            position: relative;
+            padding-bottom: 20px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+            border-radius: 2px;
+        }
+
+        .content-block {
+            background: var(--dark-color);
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            padding: 40px;
+            margin-bottom: 50px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        /* Timeline Styles */
+        .timeline {
+            position: relative;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px 0;
+        }
+
+        .timeline::after {
+            content: '';
+            position: absolute;
+            width: 6px;
+            background: linear-gradient(to bottom, var(--primary-color), var(--accent-color));
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -3px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(109, 40, 217, 0.5);
+        }
+
+        .timeline-item {
+            padding: 15px 50px;
+            position: relative;
+            width: 50%;
+            box-sizing: border-box;
+        }
+
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            width: 25px;
+            height: 25px;
+            right: -12px;
+            background-color: var(--dark-color);
+            border: 4px solid var(--timeline-color);
+            top: 20px;
+            border-radius: 50%;
+            z-index: 1;
+            box-shadow: 0 0 10px rgba(124, 58, 237, 0.8);
+        }
+
+        .left {
+            left: 0;
+        }
+
+        .right {
+            left: 50%;
+        }
+
+        .right::after {
+            left: -12px;
+        }
+
+        .timeline-content {
+            padding: 25px 35px;
+            background: var(--card-bg);
+            position: relative;
+            border-radius: 12px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+            border-left: 4px solid var(--primary-color);
+            backdrop-filter: blur(5px);
+        }
+
+        .right .timeline-content {
+            border-left: none;
+            border-right: 4px solid var(--accent-color);
+        }
+
+        .timeline-content:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+            background: #1a2539;
+        }
+
+        .timeline-content h3 {
+            color: var(--accent-color);
+            margin-top: 0;
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .timeline-content p {
+            margin-bottom: 0;
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+
+        .timeline-content a {
+            color: var(--accent-color);
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            border-bottom: 1px dashed var(--accent-color);
+        }
+
+        .timeline-content a:hover {
+            color: var(--lighter-color);
+            border-bottom: 1px dashed var(--lighter-color);
+        }
+
+        /* Media Content Styles */
+        .media-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            margin: 25px 0;
+            align-items: center;
+        }
+
+        .media-container.reverse {
+            flex-direction: row-reverse;
+        }
+
+        .media-text {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .media-visual {
+            flex: 1;
+            min-width: 300px;
+            text-align: center;
+        }
+
+        .media-visual img {
+            max-width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+            transition: all 0.4s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .media-visual img:hover {
+            transform: scale(1.03) rotate(-1deg);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
+        }
+
+        .gif-container {
+            position: relative;
+            overflow: hidden;
+            border-radius: 10px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .gif-container img {
+            width: 100%;
+            display: block;
+        }
+
+        .video-wrapper {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            margin: 25px 0;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .video-wrapper iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        /* Team Grid Styles */
+        h3 {
+            color: var(--lighter-color);
+            margin: 50px 0 30px;
+            font-size: 2rem;
+            text-align: center;
+            font-weight: 700;
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin: 40px 0;
+        }
+
+        .team-member {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .team-member:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+            background: #1a2539;
+        }
+
+        .team-member img {
+            width: 160px;
+            height: 160px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 20px;
+            border: 4px solid var(--dark-color);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .team-member:hover img {
+            border-color: var(--primary-color);
+            box-shadow: 0 8px 25px rgba(109, 40, 217, 0.4);
+        }
+
+        .team-member h4 {
+            margin: 15px 0 8px;
+            color: var(--accent-color);
+            font-size: 1.3rem;
+            font-weight: 600;
+        }
+
+        .team-member p {
+            margin: 8px 0;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        /* Responsive Design */
+        @media screen and (max-width: 768px) {
+            .container {
+                padding: 30px 15px;
+            }
+            
+            h2 {
+                font-size: 2.2rem;
+                margin-bottom: 40px;
+            }
+            
+            .content-block {
+                padding: 30px;
+            }
+            
+            .timeline::after {
+                left: 31px;
+            }
+
+            .timeline-item {
+                width: 100%;
+                padding-left: 80px;
+                padding-right: 30px;
+            }
+
+            .timeline-item::after {
+                left: 18px;
+            }
+
+            .left::after, .right::after {
+                left: 18px;
+            }
+
+            .right {
+                left: 0%;
+            }
+
+            .media-container, .media-container.reverse {
+                flex-direction: column;
+            }
+
+            .media-text, .media-visual {
+                min-width: 100%;
+            }
+            
+            .team-grid {
+                grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+                gap: 20px;
+            }
+            
+            .team-member {
+                padding: 25px;
+            }
+        }
+
+        /* Animation Effects */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .timeline-item {
+            animation: fadeIn 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+            opacity: 0;
+        }
+
+        .timeline-item:nth-child(1) { animation-delay: 0.1s; }
+        .timeline-item:nth-child(2) { animation-delay: 0.2s; }
+        .timeline-item:nth-child(3) { animation-delay: 0.3s; }
+        .timeline-item:nth-child(4) { animation-delay: 0.4s; }
+        .timeline-item:nth-child(5) { animation-delay: 0.5s; }
+        .timeline-item:nth-child(6) { animation-delay: 0.6s; }
+        .timeline-item:nth-child(7) { animation-delay: 0.7s; }
+        .timeline-item:nth-child(8) { animation-delay: 0.8s; }
+        .timeline-item:nth-child(9) { animation-delay: 0.9s; }
+        .timeline-item:nth-child(10) { animation-delay: 1.0s; }
+        
+        /* Scrollbar Styling */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: var(--darker-color);
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary-color);
+            border-radius: 5px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--secondary-color);
+        }
+    </style>
+</head>
+<body>
+    <section id="historia">
+        <div class="container">
+            <h2>História da Inteligência Artificial</h2>
+            
+            <div class="content-block">
+                <div class="timeline">
+                    <!-- Novo item 1943 -->
+                    <div class="timeline-item left">
+                        <div class="timeline-content">
+                            <h3>1943 - Redes Neurais</h3>
+                            <div class="media-container">
+                                <div class="media-text">
+                                    <p>Warren McCulloch e Walter Pitts, durante a Segunda Guerra Mundial, publicam um artigo sobre as redes neurais, que são estruturas de raciocínio artificiais em forma de modelo matemático que imitam o sistema nervoso.</p>
+                                </div>
+                                <div class="media-visual">
+                                    <div class="gif-container">
+                                        <img src="https://sites.icmc.usp.br/andre/research/neural/image/camadas_an.gif" alt="Redes Neurais">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Novo item 1951 -->
+                    <div class="timeline-item right">
+                        <div class="timeline-content">
+                            <h3>1951 - SNARC</h3>
+                            <div class="media-container reverse">
+                                <div class="media-text">
+                                    <p>Marvin Minsky cria uma calculadora matemática que simula sinapses e ligações entre os neurônios, um dos primeiros passos concretos na modelagem de inteligência artificial.</p>
+                                </div>
+                                <div class="media-visual">
+                                    <div class="gif-container">
+                                        <img src="https://img3.ibxk.com.br/2018/10/22/uma-maquina-22104816359012.jpg?w=700" alt="SNARC">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item left">
+                        <div class="timeline-content">
+                            <h3>1950 - O Início</h3>
+                            <p>Alan Turing publica "<a href="https://academic.oup.com/mind/article/LIX/236/433/986238" target="_blank">Computing Machinery and Intelligence</a>", propondo o famoso Teste de Turing para avaliar a inteligência em máquinas.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Novo item 1952 -->
+                    <div class="timeline-item right">
+                        <div class="timeline-content">
+                            <h3>1952 - Jogo de Damas</h3>
+                            <div class="media-container">
+                                <div class="media-text">
+                                    <p>Arthur Samuel cria um jogo de damas no IBM 701 que consegue melhorar por conta própria e vira desafio à altura de jogadores amadores, demonstrando pela primeira vez o conceito de aprendizado de máquina.</p>
+                                </div>
+                                <div class="media-visual">
+                                    <img src="https://miro.medium.com/max/1226/0*kCEtU22wRCqma05U.jpg" alt="Jogo de Damas IBM 701">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item left">
+                        <div class="timeline-content">
+                            <h3>1956 - Nascimento da IA</h3>
+                            <p>O termo "Inteligência Artificial" é criado por John McCarthy durante a <a href="https://raysolomonoff.com/dartmouth/boxa/dart564props.pdf" target="_blank">Conferência de Dartmouth</a>, considerada o nascimento oficial da IA como campo de estudo.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Novo item 1969 -->
+                    <div class="timeline-item right">
+                        <div class="timeline-content">
+                            <h3>1969 - SHAKEY</h3>
+                            <p>Primeiro robô que unia mobilidade, fala e certa automação, era lento e cheio de problemas, porém funcionava. SHAKEY representou um marco na robótica inteligente.</p>
+                            
+                            <div class="video-wrapper">
+                                <iframe width="1387" height="659" src="https://www.youtube.com/embed/wfq20HOUbIk" title="SHAKEY Robot" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                            </div>
+                            
+                            <div class="video-wrapper">
+                                <iframe width="1387" height="659" src="https://www.youtube.com/embed/h3WS6roasFw" title="SHAKEY Demonstration" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                            </div>
+                            
+                            <div class="timeline-content" style="margin-top: 20px; background: rgba(139, 92, 246, 0.1);">
+                                <h4>CAMPO DE PROCESSAMENTO NATURAL DA LINGUAGEM</h4>
+                                <p>Esse campo era um dos mais promissores. É o setor da Inteligência Artificial que compreende a fala humana. Além de traduzir, gerava linguagem de texto, reconhecimento de fala e processamento de voz.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item left">
+                        <div class="timeline-content">
+                            <h3>1960-1970 - Primeiros Sistemas</h3>
+                            <p>Desenvolvimento de sistemas especialistas como ELIZA (1966, primeiro chatbot) e SHRDLU (1972, compreensão de linguagem natural).</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Novo item sobre Edward Feigenbaum -->
+                    <div class="timeline-item right">
+                        <div class="timeline-content">
+                            <h3>Sistemas Especialistas</h3>
+                            <div class="media-container reverse">
+                                <div class="media-text">
+                                    <p>Após o inverno da IA, Edward Feigenbaum propôs no campo de sistemas especialistas um sistema que realiza atividades complexas e específicas de um campo, de uma forma rápida e com base em conhecimento vasto.</p>
+                                </div>
+                                <div class="media-visual">
+                                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/27._Dr._Edward_A._Feigenbaum_1994-1997.jpg/960px-27._Dr._Edward_A._Feigenbaum_1994-1997.jpg" alt="Edward Feigenbaum">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item left">
+                        <div class="timeline-content">
+                            <h3>1980-1990 - Inverno da IA</h3>
+                            <p>Período de redução de financiamento devido a expectativas não realistas, seguido por avanços em aprendizado de máquina e redes neurais nos anos 90.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item right">
+                        <div class="timeline-content">
+                            <h3>1997 - Deep Blue vs Kasparov</h3>
+                            <p>Quando a máquina derrotou um homem no jogo de xadrez. O campeão soviético Garry Kasparov foi derrotado em uma das rodadas pelo computador Deep Blue da IBM. Ele adotava um método de cálculo que analisava as possibilidades, previa as respostas e os movimentos.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item left">
+                        <div class="timeline-content">
+                            <h3>2011 - IBM Watson</h3>
+                            <p>Watson vence o Jeopardy!, demonstrando avanços no processamento de linguagem natural.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item right">
+                        <div class="timeline-content">
+                            <h3>2016 - AlphaGo</h3>
+                            <p>Programa da DeepMind vence o campeão mundial de Go, jogo considerado muito mais complexo que xadrez.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item left">
+                        <div class="timeline-content">
+                            <h3>2020 - GPT-3</h3>
+                            <p>Lançamento do GPT-3 pela OpenAI, modelo de linguagem com 175 bilhões de parâmetros.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <h3>Principais Pioneiros</h3>
+                <div class="team-grid">
+                    <div class="team-member">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/a/a1/Alan_Turing_Aged_16.jpg" alt="Alan Turing">
+                        <h4>Alan Turing</h4>
+                        <p>Pai da computação teórica</p>
+                        <p>1912-1954</p>
+                    </div>
+                    
+                    <div class="team-member">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3e/Warren_McCulloch.jpg/800px-Warren_McCulloch.jpg" alt="Warren McCulloch">
+                        <h4>Warren McCulloch</h4>
+                        <p>Pioneiro em redes neurais</p>
+                        <p>1898-1969</p>
+                    </div>
+                    
+                    <div class="team-member">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Marvin_Minsky_at_OLPCb.jpg/800px-Marvin_Minsky_at_OLPCb.jpg" alt="Marvin Minsky">
+                        <h4>Marvin Minsky</h4>
+                        <p>Criador do SNARC</p>
+                        <p>1927-2016</p>
+                    </div>
+                    
+                    <div class="team-member">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/John_McCarthy_Stanford.jpg/800px-John_McCarthy_Stanford.jpg" alt="John McCarthy">
+                        <h4>John McCarthy</h4>
+                        <p>Criador do termo "IA"</p>
+                        <p>1927-2011</p>
+                    </div>
+                    
+                    <div class="team-member">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Geoffrey_Hinton_at_UBC.jpg/800px-Geoffrey_Hinton_at_UBC.jpg" alt="Geoffrey Hinton">
+                        <h4>Geoffrey Hinton</h4>
+                        <p>Pioneiro em redes neurais</p>
+                        <p>1947-presente</p>
+                    </div>
+                    
+                    <div class="team-member">
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcStoPA7anJaQR5Uk_IQzOZ30aCCpDfvTlRyHw&s" alt="Yann LeCun">
+                        <h4>Yann LeCun</h4>
+                        <p>Pai das CNNs</p>
+                        <p>1960-presente</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+</html>
